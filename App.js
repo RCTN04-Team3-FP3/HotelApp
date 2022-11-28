@@ -3,6 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import Main from './src/components/Main';
 import Login from './src/pages/Login';
+import Detail from './src/pages/Detail';
 
 const Stack = createStackNavigator();
 
@@ -13,6 +14,11 @@ const App = () => {
         <Stack.Screen
           name="Main"
           component={Main}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Detail"
+          component={Detail}
           options={{headerShown: false}}
         />
         <Stack.Screen name="Login" component={Login} />

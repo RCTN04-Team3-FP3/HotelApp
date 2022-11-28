@@ -18,7 +18,7 @@ import TopHotelCard from '../components/TopHotelCard';
 const {width} = Dimensions.get('screen');
 const cardWidth = width / 1.8;
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const hotels = [
     {
       id: '1',
@@ -95,6 +95,7 @@ const Home = () => {
                 cardWidth={cardWidth}
                 scrollX={scrollX}
                 activeCardIndex={activeCardIndex}
+                navigation={navigation}
               />
             )}
             snapToInterval={cardWidth}

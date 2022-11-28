@@ -22,7 +22,7 @@ const Card = ({hotel, index, cardWidth, scrollX, activeCardIndex, navigation}) =
     <TouchableOpacity
       disabled={activeCardIndex !== index}
       activeOpacity={1}
-      // onPress={() => navigation.navigate('DetailsScreen', hotel)}
+      onPress={() => navigation.navigate('Detail', hotel)}
       >
       <Animated.View style={{...styles.card, width: cardWidth, transform: [{scale}]}}>
         <Animated.View style={{...styles.cardOverLay, width: cardWidth, opacity}} />
