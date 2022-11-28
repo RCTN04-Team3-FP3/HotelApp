@@ -3,7 +3,7 @@
 import {Text} from 'react-native';
 
 const Setting = () => {
-  return <Text>Settings</Text>;
+  return <Text>Setting</Text>;
 };
 
 export default Setting;
