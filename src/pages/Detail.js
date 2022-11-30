@@ -7,12 +7,18 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  TouchableHighlight,
   View,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {
+  faStar,
+  faChevronLeft,
+  faBookmark,
+} from '@fortawesome/free-solid-svg-icons';
 
 const Detail = ({navigation, route}) => {
-  const item = route.params;
+  const hotel = route.params;
 
   return (
     <ScrollView
@@ -21,29 +27,34 @@ const Detail = ({navigation, route}) => {
         backgroundColor: 'white',
         paddingBottom: 20,
       }}>
-      <StatusBar
+      {/* <StatusBar
         barStyle="light-content"
         translucent
         backgroundColor="rgba(0,0,0,0)"
-      />
-      <ImageBackground style={style.headerImage} source={item.image}>
+      /> */}
+      <ImageBackground
+        style={style.headerImage}
+        source={{uri: `${hotel.propertyImage.image.url}`}}>
         <View style={style.header}>
-          <Icon
-            name="arrow-back-ios"
-            size={28}
-            color={'white'}
-            onPress={navigation.goBack}
-          />
-          <Icon name="bookmark-border" size={28} color={'white'} />
+          <TouchableHighlight onPress={navigation.goBack}>
+            <FontAwesomeIcon icon={faChevronLeft} size={28} color={'white'} />
+          </TouchableHighlight>
         </View>
       </ImageBackground>
       <View>
         <View style={style.iconContainer}>
-          <Icon name="place" color={'white'} size={28} />
+          <TouchableHighlight>
+            <FontAwesomeIcon
+              icon={faBookmark}
+              size={28}
+              color={'white'}
+              onPress={navigation.goBack}
+            />
+          </TouchableHighlight>
         </View>
         <View style={{marginTop: 20, paddingHorizontal: 20}}>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}>{item.name}</Text>
-          <Text
+          <Text style={{fontSize: 20, fontWeight: 'bold'}}>{hotel.name}</Text>
+          {/* <Text
             style={{
               fontSize: 12,
               fontWeight: '400',
@@ -51,7 +62,7 @@ const Detail = ({navigation, route}) => {
               marginTop: 5,
             }}>
             {item.location}
-          </Text>
+          </Text> */}
           <View
             style={{
               marginTop: 10,
@@ -59,22 +70,24 @@ const Detail = ({navigation, route}) => {
               justifyContent: 'space-between',
             }}>
             <View style={{flexDirection: 'row'}}>
-              <View style={{flexDirection: 'row'}}>
-                <Icon name="star" size={20} color={'orange'} />
-                <Icon name="star" size={20} color={'orange'} />
-                <Icon name="star" size={20} color={'orange'} />
-                <Icon name="star" size={20} color={'orange'} />
-                <Icon name="star" size={20} color={'grey'} />
-              </View>
               <Text style={{fontWeight: 'bold', fontSize: 18, marginLeft: 5}}>
-                4.0
+                <FontAwesomeIcon icon={faStar} />
+                {hotel.reviews.score} ({hotel.reviews.total} reviews)
               </Text>
             </View>
-            <Text style={{fontSize: 13, color: 'grey'}}>365reviews</Text>
           </View>
           <View style={{marginTop: 20}}>
             <Text style={{lineHeight: 20, color: 'grey'}}>
-              {item.details}
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
+              dignissim nibh turpis, non vehicula neque condimentum sed. Morbi
+              consequat nibh ac faucibus aliquet. Nulla non elit dolor. Nullam
+              maximus facilisis risus, eu tristique tortor mollis quis.
+              Curabitur eleifend sodales maximus. Morbi ultrices sollicitudin
+              justo in mollis. Praesent nec ex a magna accumsan euismod ut
+              rutrum diam. Integer laoreet scelerisque nulla a pharetra. Cras
+              elementum leo eu sagittis placerat. Mauris hendrerit nisi feugiat
+              dui tincidunt, nec tincidunt tellus tincidunt. Praesent vel mollis
+              ex.
             </Text>
           </View>
         </View>
@@ -97,7 +110,7 @@ const Detail = ({navigation, route}) => {
                 color: 'grey',
                 marginLeft: 5,
               }}>
-              ${item.price}
+              {hotel.price.options[0].formattedDisplayPrice}
             </Text>
             <Text
               style={{
@@ -160,7 +173,7 @@ const style = StyleSheet.create({
     overflow: 'hidden',
   },
   header: {
-    marginTop: 60,
+    marginTop: 20,
     flexDirection: 'row',
     alignItems: 'center',
     marginHorizontal: 20,

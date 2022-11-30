@@ -2,7 +2,6 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/react-in-jsx-scope */
 import {Animated, Image, Text, TouchableOpacity, View} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Card = ({hotel, index, cardWidth, scrollX, activeCardIndex, navigation}) => {
   const inputRange = [
@@ -35,29 +34,13 @@ const Card = ({hotel, index, cardWidth, scrollX, activeCardIndex, navigation}) =
         <View style={styles.cardDetails}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <View>
-              <Text style={{fontWeight: 'bold', fontSize: 17}}>
+              <Text style={{fontWeight: 'bold', fontSize: 18}}>
                 {hotel.name}
               </Text>
               <Text style={{color: 'grey', fontSize: 12}}>
                 {hotel.location}
               </Text>
             </View>
-            <Icon name="bookmark-border" size={26} color={'blue'} />
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginTop: 10,
-            }}>
-            <View style={{flexDirection: 'row'}}>
-              <Icon name="star" size={15} color={'orane'} />
-              <Icon name="star" size={15} color={'orange'} />
-              <Icon name="star" size={15} color={'orange'} />
-              <Icon name="star" size={15} color={'orange'} />
-              <Icon name="star" size={15} color={'grey'} />
-            </View>
-            <Text style={{fontSize: 10, color: 'grey'}}>365reviews</Text>
           </View>
         </View>
       </Animated.View>

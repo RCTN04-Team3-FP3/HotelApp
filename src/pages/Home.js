@@ -1,6 +1,8 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/react-in-jsx-scope */
+import {faSearch} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {useRef, useState} from 'react';
 import {
   SafeAreaView,
@@ -9,17 +11,17 @@ import {
   Animated,
   Dimensions,
   FlatList,
+  Button,
 } from 'react-native';
 import {ScrollView, TextInput} from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import Card from '../components/Card';
-import TopHotelCard from '../components/TopHotelCard';
+import CarouselCard from '../components/CarouselCard';
 
 const {width} = Dimensions.get('screen');
 const cardWidth = width / 1.8;
 
-const Home = ({ navigation }) => {
-  const hotels = [
+const Home = ({navigation}) => {
+  const hotel = [
     {
       id: '1',
       name: 'Silver Hotel & SPA',
@@ -53,6 +55,44 @@ const Home = ({ navigation }) => {
       details: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consequat nisl vel pretium lectus quam id leo. Velit euismod in pellentesque massa placerat duis ultricies lacus sed. Justo laoreet sit amet cursus sit`,
     },
   ];
+  const cities = [
+    {
+      id: '1',
+      city: 'Jakarta',
+      image: require('../assets/jakarta.jpg'),
+    },
+    {
+      id: '2',
+      city: 'Bandung',
+      image: require('../assets/bandung.jpg'),
+    },
+    {
+      id: '3',
+      city: 'Padang',
+      image: require('../assets/padang.jpg'),
+    },
+    {
+      id: '4',
+      city: 'Bali',
+      image: require('../assets/bali.jpg'),
+    },
+    {
+      id: '5',
+      city: 'Yogyakarta',
+      image: require('../assets/yogyakarta.jpg'),
+    },
+    {
+      id: '6',
+      city: 'Batam',
+      image: require('../assets/batam.jpg'),
+    },
+    {
+      id: '7',
+      city: 'Malang',
+      image: require('../assets/malang.jpg'),
+    },
+  ];
+  const [city, setCity] = useState(null);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
 
@@ -60,14 +100,48 @@ const Home = ({ navigation }) => {
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.searchInputContainer}>
-          <Icon name="search" size={30} style={{marginLeft: 20}} />
+          <FontAwesomeIcon icon={faSearch} style={{paddingLeft: 60}} />
           <TextInput
             placeholder="Search"
-            style={{fontSize: 20, paddingLeft: 10}}
+            style={{fontSize: 20, paddingRight: 100}}
+            onChangeText={setCity}
+            value={city}
           />
         </View>
-        <Text style={{fontWeight: 'bold', color: 'grey', marginHorizontal: 20}}>
-          TOP DESTINATIONS
+        <Button
+          onPress={() => {
+            navigation.navigate('List', city);
+            setCity(null);
+          }}
+          title="Search"
+          color="blue"
+          style={{width: '90%'}}
+        />
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginHorizontal: 20,
+          }}>
+          <Text style={{fontWeight: 'bold', color: 'grey', fontSize: 24}}>
+            TOP DESTINATIONS
+          </Text>
+        </View>
+        <FlatList
+          data={cities}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingLeft: 20,
+            marginTop: 20,
+            paddingBottom: 30,
+          }}
+          renderItem={({item}) => (
+            <CarouselCard city={item} navigation={navigation} />
+          )}
+        />
+        <Text style={{fontWeight: 'bold', color: 'grey', marginLeft: 20, fontSize: 24}}>
+          RECOMMENDED HOTELS
         </Text>
         <View>
           <Animated.FlatList
@@ -81,11 +155,11 @@ const Home = ({ navigation }) => {
               {useNativeDriver: true},
             )}
             horizontal
-            data={hotels}
+            data={hotel}
             contentContainerStyle={{
               paddingVertical: 30,
               paddingLeft: 20,
-              paddingRight: cardWidth / 2 - 40,
+              // paddingRight: cardWidth / 2 - 40,
             }}
             showsHorizontalScrollIndicator={false}
             renderItem={({item, index}) => (
@@ -101,25 +175,8 @@ const Home = ({ navigation }) => {
             snapToInterval={cardWidth}
           />
         </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginHorizontal: 20,
-          }}>
-          <Text style={{fontWeight: 'bold', color: 'grey'}}>TOP DESTINATIONS</Text>
-        </View>
-        <FlatList
-          data={hotels}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{
-            paddingLeft: 20,
-            marginTop: 20,
-            paddingBottom: 30,
-          }}
-          renderItem={({item}) => <TopHotelCard hotel={item} />}
-        />
+        {/* {hotel.map((item) => (<ListCard hotel={item} />))} */}
+        {/* <ListCard /> */}
       </ScrollView>
     </SafeAreaView>
   );

@@ -4,26 +4,32 @@ import React from 'react';
 import Main from './src/components/Main';
 import Login from './src/pages/Login';
 import Detail from './src/pages/Detail';
+import {Provider} from 'react-redux';
+import {store} from './src/app/store';
+import List from './src/pages/List';
 
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Main"
-          component={Main}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Detail"
-          component={Detail}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen name="Login" component={Login} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Main"
+            component={Main}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Detail"
+            component={Detail}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen name="List" component={List} />
+          <Stack.Screen name="Login" component={Login} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 };
 

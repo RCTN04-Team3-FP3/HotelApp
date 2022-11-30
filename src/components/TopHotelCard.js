@@ -2,38 +2,40 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/react-in-jsx-scope */
 import {Image, Text, View} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const TopHotelCard = ({hotel}) => {
+const TopHotelCard = ({city, navigation}) => {
   return (
-    <View style={styles.topHotelCard}>
-      <View
-        style={{
-          position: 'absolute',
-          top: 5,
-          right: 5,
-          zIndex: 1,
-          flexDirection: 'row',
-        }}>
-        <Icon name="star" size={15} color={'orange'} />
-        <Text style={{color: 'white', fontWeight: 'bold', fontSize: 15}}>
-          5.0
-        </Text>
-      </View>
-      <Image style={styles.topHotelCardImage} source={hotel.image} />
-      <View style={{paddingVertical: 5, paddingHorizontal: 10}}>
-        <Text style={{fontSize: 18, fontWeight: 'bold'}}>{hotel.name}</Text>
-        <Text style={{fontSize: 12, color: 'grey'}}>
+    <TouchableOpacity
+      style={styles.topHotelCard}
+      onPress={() => navigation.navigate('List', city.city)}>
+      <View>
+        <View
+          style={{
+            position: 'absolute',
+            top: 5,
+            right: 5,
+            zIndex: 1,
+            flexDirection: 'row',
+          }}>
+          <Icon name="star" size={15} color={'orange'} />
+        </View>
+        <Image style={styles.topHotelCardImage} source={city.image} />
+        <View style={{paddingVertical: 5, paddingHorizontal: 10}}>
+          <Text style={{fontSize: 18, fontWeight: 'bold'}}>{city.city}</Text>
+          {/* <Text style={{fontSize: 12, color: 'grey'}}>
           {hotel.location}
-        </Text>
+        </Text> */}
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
 const styles = {
   topHotelCard: {
-    height: 200,
+    height: 170,
     width: 200,
     backgroundColor: 'white',
     elevation: 15,
