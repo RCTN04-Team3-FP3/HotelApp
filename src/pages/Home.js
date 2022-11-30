@@ -140,7 +140,13 @@ const Home = ({navigation}) => {
             <CarouselCard city={item} navigation={navigation} />
           )}
         />
-        <Text style={{fontWeight: 'bold', color: 'grey', marginLeft: 20, fontSize: 24}}>
+        <Text
+          style={{
+            fontWeight: 'bold',
+            color: 'grey',
+            marginLeft: 20,
+            fontSize: 24,
+          }}>
           RECOMMENDED HOTELS
         </Text>
         <View>
