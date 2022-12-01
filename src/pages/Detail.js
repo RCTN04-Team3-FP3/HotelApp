@@ -34,7 +34,7 @@ const Detail = ({navigation, route}) => {
       /> */}
       <ImageBackground
         style={style.headerImage}
-        source={{uri: `${hotel.propertyImage.image.url}`}}>
+        source={{uri: `${hotel.image}`}}>
         <View style={style.header}>
           <TouchableHighlight onPress={navigation.goBack}>
             <FontAwesomeIcon icon={faChevronLeft} size={28} color={'white'} />
@@ -110,7 +110,7 @@ const Detail = ({navigation, route}) => {
                 color: 'grey',
                 marginLeft: 5,
               }}>
-              {hotel.price.options[0].formattedDisplayPrice}
+              {hotel.price}
             </Text>
             <Text
               style={{

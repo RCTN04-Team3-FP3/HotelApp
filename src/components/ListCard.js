@@ -13,11 +13,11 @@ const ListCard = ({navigation, hotel}) => {
       <SafeAreaView style={styles.card}>
         <View style={styles.priceTag}>
           <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>
-            {hotel.price.options[0].formattedDisplayPrice}
+            {hotel.price}
           </Text>
         </View>
         <Image
-          source={{uri: `${hotel.propertyImage.image.url}`}}
+          source={{uri: `${hotel.image}`}}
           style={styles.cardImage}
         />
         <View style={styles.cardDetails}>
