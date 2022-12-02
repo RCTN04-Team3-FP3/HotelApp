@@ -21,6 +21,7 @@ const Main = () => {
     <Tab.Navigator
       screenOptions={
         ({route}) => ({
+          tabBarShowLabel: false,
           tabBarIcon: ({focused}) => {
             const activeColor = focused ? 'blue' : 'grey';
             switch (route.name) {
@@ -54,17 +55,14 @@ const Main = () => {
       <Tab.Screen
         name="Favorites"
         component={Favorites}
-        options={{headerShown: false}}
       />
       <Tab.Screen
         name="Profile"
         component={Profile}
-        options={{headerShown: false}}
       />
       <Tab.Screen
         name="Setting"
         component={Setting}
-        options={{headerShown: false}}
       />
     </Tab.Navigator>
   );

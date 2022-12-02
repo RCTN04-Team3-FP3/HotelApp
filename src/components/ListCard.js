@@ -4,22 +4,25 @@
 import {faStar} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {Image, SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
+import { useDispatch } from 'react-redux';
+import { fetchDetailHotel } from '../features/hotels/hotelsSlice';
 
 const ListCard = ({navigation, hotel}) => {
+  const dispatch = useDispatch(hotel.id);
   return (
     <TouchableOpacity
       activeOpacity={1}
-      onPress={() => navigation.navigate('Detail', hotel)}>
+      onPress={() => {
+        navigation.navigate('Detail', hotel);
+        dispatch(fetchDetailHotel(hotel.id));
+      }}>
       <SafeAreaView style={styles.card}>
         <View style={styles.priceTag}>
-          <Text style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>
-            {hotel.price}
+          <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>
+            ${hotel.price}
           </Text>
         </View>
-        <Image
-          source={{uri: `${hotel.image}`}}
-          style={styles.cardImage}
-        />
+        <Image source={{uri: `${hotel.image}`}} style={styles.cardImage} />
         <View style={styles.cardDetails}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <View>
@@ -27,26 +30,11 @@ const ListCard = ({navigation, hotel}) => {
                 {hotel.name}
               </Text>
             </View>
-            {/* <Icon name="bookmark-border" size={26} color={'blue'} /> */}
           </View>
-          {/* <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginTop: 10,
-          }}>
-          <View style={{flexDirection: 'row'}}>
-            <Icon name="star" size={15} color={'orane'} />
-            <Icon name="star" size={15} color={'orange'} />
-            <Icon name="star" size={15} color={'orange'} />
-            <Icon name="star" size={15} color={'orange'} />
-            <Icon name="star" size={15} color={'grey'} />
-          </View> */}
           <Text style={{fontSize: 18, color: 'grey'}}>
             <FontAwesomeIcon icon={faStar} />
             {hotel.reviews.score} ({hotel.reviews.total} reviews)
           </Text>
-          {/* </View> */}
         </View>
       </SafeAreaView>
     </TouchableOpacity>

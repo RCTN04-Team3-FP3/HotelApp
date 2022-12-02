@@ -5,16 +5,16 @@ import axios from 'axios';
 
 const initialState = {
   hotels: [],
-  topHotels: [],
+  details: {},
   loading: false,
   error: '',
 };
 
-export const httpClient = axios.create({
+const httpClient = axios.create({
   baseURL: 'https://hotels4.p.rapidapi.com/',
   headers: {
     'content-type': 'application/json',
-    'X-RapidAPI-Key': '78e03438famsh5de0a1e4983a9d9p1412b3jsn0e43caf98b08',
+    'X-RapidAPI-Key': 'da43c6ff7emsh709d855910fd898p1b7934jsn79b0a074bbb9',
     'X-RapidAPI-Host': 'hotels4.p.rapidapi.com',
   },
 });
@@ -42,13 +42,14 @@ const fetchProperty = id => {
     })
     .then(res =>
       res.data.data.propertySearch.properties.map(hotel => {
-        const detail = {
+        const data = {
+          id: hotel.id,
           name: hotel.name,
           reviews: hotel.reviews,
           image: hotel.propertyImage.image.url,
-          price: hotel.price.options[0].formattedDisplayPrice,
+          price: hotel.price.lead.amount.toFixed(1),
         };
-        return detail;
+        return data;
       }),
     );
 };
@@ -67,6 +68,32 @@ export const fetchHotels = createAsyncThunk(
   },
 );
 
+const fetchDetail = id => {
+  return httpClient
+    .post('properties/v2/detail', {
+      propertyId: id,
+    })
+    .then(res => {
+      const data = {
+        location: res.data.data.propertyInfo.summary.location.address.addressLine,
+        desc: res.data.data.propertyInfo.summary.policies.shouldMention.body[0],
+      };
+      return data;
+    });
+};
+
+export const fetchDetailHotel = createAsyncThunk(
+  'detail/fetchDetail',
+  async id => {
+    try {
+      const res = fetchDetail(id).then(res => res);
+      return res;
+    } catch (error) {
+      throw error;
+    }
+  },
+);
+
 const hotelsSlice = createSlice({
   name: 'hotels',
   initialState,
@@ -77,6 +104,9 @@ const hotelsSlice = createSlice({
       })
       .addCase(fetchHotels.fulfilled, (state, action) => {
         return {...state, hotels: action.payload, loading: false};
+      })
+      .addCase(fetchDetailHotel.fulfilled, (state, action) => {
+        return {...state, details: action.payload};
       })
       .addCase(fetchHotels.rejected, (state, action) => {
         return {...state, loading: false, error: action.error.message};

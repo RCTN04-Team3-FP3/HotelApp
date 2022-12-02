@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   ImageBackground,
   ScrollView,
@@ -16,9 +17,15 @@ import {
   faChevronLeft,
   faBookmark,
 } from '@fortawesome/free-solid-svg-icons';
+import {useDispatch, useSelector} from 'react-redux';
+import {deleteFavorite, saveToFavorite} from '../features/users/usersSlice';
 
 const Detail = ({navigation, route}) => {
+  const {details} = useSelector(state => state.hotels);
+  const {favorite} = useSelector(state => state.users);
   const hotel = route.params;
+  const dispatch = useDispatch();
+  const isFavorite = favorite.some(fav => fav.id === hotel.id);
 
   return (
     <ScrollView
@@ -27,11 +34,6 @@ const Detail = ({navigation, route}) => {
         backgroundColor: 'white',
         paddingBottom: 20,
       }}>
-      {/* <StatusBar
-        barStyle="light-content"
-        translucent
-        backgroundColor="rgba(0,0,0,0)"
-      /> */}
       <ImageBackground
         style={style.headerImage}
         source={{uri: `${hotel.image}`}}>
@@ -43,26 +45,21 @@ const Detail = ({navigation, route}) => {
       </ImageBackground>
       <View>
         <View style={style.iconContainer}>
-          <TouchableHighlight>
+          <TouchableHighlight
+            onPress={() => {
+              isFavorite
+                ? dispatch(deleteFavorite(hotel.id))
+                : dispatch(saveToFavorite(hotel));
+            }}>
             <FontAwesomeIcon
               icon={faBookmark}
               size={28}
-              color={'white'}
-              onPress={navigation.goBack}
+              color={isFavorite ? 'red' : 'white'}
             />
           </TouchableHighlight>
         </View>
         <View style={{marginTop: 20, paddingHorizontal: 20}}>
           <Text style={{fontSize: 20, fontWeight: 'bold'}}>{hotel.name}</Text>
-          {/* <Text
-            style={{
-              fontSize: 12,
-              fontWeight: '400',
-              color: 'grey',
-              marginTop: 5,
-            }}>
-            {item.location}
-          </Text> */}
           <View
             style={{
               marginTop: 10,
@@ -77,18 +74,12 @@ const Detail = ({navigation, route}) => {
             </View>
           </View>
           <View style={{marginTop: 20}}>
-            <Text style={{lineHeight: 20, color: 'grey'}}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
-              dignissim nibh turpis, non vehicula neque condimentum sed. Morbi
-              consequat nibh ac faucibus aliquet. Nulla non elit dolor. Nullam
-              maximus facilisis risus, eu tristique tortor mollis quis.
-              Curabitur eleifend sodales maximus. Morbi ultrices sollicitudin
-              justo in mollis. Praesent nec ex a magna accumsan euismod ut
-              rutrum diam. Integer laoreet scelerisque nulla a pharetra. Cras
-              elementum leo eu sagittis placerat. Mauris hendrerit nisi feugiat
-              dui tincidunt, nec tincidunt tellus tincidunt. Praesent vel mollis
-              ex.
+            <Text style={{fontWeight: 'bold', fontSize: 18}}>Location:</Text>
+            <Text style={{lineHeight: 20, color: 'grey', marginBottom: 20}}>
+              {details.location}
             </Text>
+            <Text style={{fontWeight: 'bold', fontSize: 18}}>Description:</Text>
+            <Text style={{lineHeight: 20, color: 'grey'}}>{details.desc}</Text>
           </View>
         </View>
         <View
@@ -110,14 +101,14 @@ const Detail = ({navigation, route}) => {
                 color: 'grey',
                 marginLeft: 5,
               }}>
-              {hotel.price}
+              ${hotel.price}
             </Text>
             <Text
               style={{
                 fontSize: 12,
                 fontWeight: 'bold',
                 color: 'grey',
-                marginLeft: 5,
+                marginLeft: 10,
               }}>
               +breakfast
             </Text>

@@ -3,26 +3,20 @@
 /* eslint-disable react/react-in-jsx-scope */
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {useRef, useState} from 'react';
+import {useState} from 'react';
 import {
   SafeAreaView,
   Text,
   View,
-  Animated,
-  Dimensions,
   FlatList,
-  Button,
   StyleSheet,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import {ScrollView, TextInput} from 'react-native-gesture-handler';
-import Card from '../components/Card';
 import CarouselCard from '../components/CarouselCard';
 import DatePicker from '../components/DatePicker';
 import Modal from 'react-native-modal';
-
-const {width} = Dimensions.get('screen');
-const cardWidth = width / 1.8;
 
 const Home = ({navigation}) => {
   const cities = [
@@ -95,10 +89,9 @@ const Home = ({navigation}) => {
     },
   ];
   const [city, setCity] = useState(null);
-  const [activeCardIndex, setActiveCardIndex] = useState(0);
-  const scrollX = useRef(new Animated.Value(0)).current;
   const [inDate, setInDate] = useState(null);
   const [outDate, setOutDate] = useState(null);
+  const [guest, setGuest] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
@@ -135,17 +128,26 @@ const Home = ({navigation}) => {
               <Text>{`${inDate.format('ll')} - ${outDate.format('ll')}`}</Text>
             )}
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => setModalVisible(!modalVisible)}
-            style={styles.guest}>
-            <Text>Guest</Text>
-          </TouchableOpacity>
+          <TextInput
+            onChangeText={setGuest}
+            keyboardType="numeric"
+            style={styles.guest}
+            value={guest}
+            placeholder="Guest"
+          />
         </View>
         <TouchableOpacity
           style={styles.search}
           onPress={() => {
-            navigation.navigate('List', city);
-            setCity(null);
+            if (city && inDate && outDate && guest) {
+              navigation.navigate('List', city);
+              setCity(null);
+              setInDate(null);
+              setOutDate(null);
+              setGuest(null);
+            } else {
+              Alert.alert('Please Input all the field!');
+            }
           }}>
           <Text>Search</Text>
         </TouchableOpacity>
@@ -186,46 +188,12 @@ const Home = ({navigation}) => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
             paddingLeft: 20,
-            paddingBottom: 200,
+            paddingBottom: 210,
           }}
           renderItem={({item}) => (
             <CarouselCard city={item} navigation={navigation} />
           )}
         />
-        {/* <View>
-          <Animated.FlatList
-            onMomentumScrollEnd={e => {
-              setActiveCardIndex(
-                Math.round(e.nativeEvent.contentOffset.x / cardWidth),
-              );
-            }}
-            onScroll={Animated.event(
-              [{nativeEvent: {contentOffset: {x: scrollX}}}],
-              {useNativeDriver: true},
-            )}
-            horizontal
-            data={hotel}
-            contentContainerStyle={{
-              paddingVertical: 30,
-              paddingLeft: 20,
-              // paddingRight: cardWidth / 2 - 40,
-            }}
-            showsHorizontalScrollIndicator={false}
-            renderItem={({item, index}) => (
-              <Card
-                hotel={item}
-                index={index}
-                cardWidth={cardWidth}
-                scrollX={scrollX}
-                activeCardIndex={activeCardIndex}
-                navigation={navigation}
-              />
-            )}
-            snapToInterval={cardWidth}
-          />
-        </View> */}
-        {/* {hotel.map((item) => (<ListCard hotel={item} />))} */}
-        {/* <ListCard /> */}
       </ScrollView>
     </SafeAreaView>
   );
@@ -259,12 +227,9 @@ const styles = StyleSheet.create({
   guest: {
     height: 50,
     flex: 1,
-    marginLeft: 5,
     backgroundColor: 'lightgrey',
     borderRadius: 30,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    textAlign: 'center',
   },
   search: {
     height: 50,

@@ -7,20 +7,25 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Alert,
 } from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {setIsLoggedIn} from '../features/users/usersSlice';
 
-const Login = () => {
+const Login = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const {email, password} = useSelector(state => state.users);
   const onPressLogin = () => {
-
+    if ((emailInput === email) && (passwordInput === password)) {
+      dispatch(setIsLoggedIn(true));
+      navigation.goBack();
+    } else {
+      Alert.alert('Wrong email or password!');
+    }
   };
-  const onPressForgotPassword = () => {
 
-  };
-
-  const [state, setState] = useState({
-    email: '',
-    password: '',
-  });
+  const [emailInput, setEmailInput] = useState('');
+  const [passwordInput, setPasswordInput] = useState('');
 
   return (
     <SafeAreaView style={styles.container}>
@@ -30,7 +35,7 @@ const Login = () => {
           style={styles.inputText}
           placeholder="Email"
           placeholderTextColor=""
-          onChangeText={text => setState({email: text})}
+          onChangeText={text => setEmailInput(text)}
         />
       </View>
       <View style={styles.inputView}>
@@ -39,14 +44,14 @@ const Login = () => {
           secureTextEntry
           placeholder="Password"
           placeholderTextColor=""
-          onChangeText={text => setState({password: text})}
+          onChangeText={text => setPasswordInput(text)}
         />
       </View>
-      <TouchableOpacity onPress={onPressForgotPassword}>
+      <TouchableOpacity>
         <Text style={styles.forgot}>Forgot Password?</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={onPressLogin} style={styles.loginBtn}>
-        <Text>LOGIN </Text>
+        <Text>LOGIN</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -75,7 +80,7 @@ const styles = StyleSheet.create({
   },
   inputText: {
     height: 50,
-    color: 'white',
+    color: 'black',
   },
   forgot: {
     color: '#003f5c',

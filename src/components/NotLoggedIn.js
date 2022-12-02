@@ -5,7 +5,7 @@ import {Button, SafeAreaView, Text} from 'react-native';
 const NotLoggedIn = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>You must Log in to use this feature</Text>
+      <Text style={styles.text}>You must login to use this feature</Text>
       <Button title="Login" onPress={() => navigation.navigate('Login')} />
     </SafeAreaView>
   );
@@ -13,14 +13,13 @@ const NotLoggedIn = ({ navigation }) => {
 
 const styles = {
   container: {
-    height: '100%',
     padding: 50,
     display: 'flex',
     justifyContent: 'center',
   },
   text: {
     fontSize: 28,
-    marginVertical: 30,
+    marginBottom: 30,
   },
 };
 
