@@ -1,14 +1,13 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
   ImageBackground,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   TouchableHighlight,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
@@ -22,8 +21,9 @@ import {deleteFavorite, saveToFavorite} from '../features/users/usersSlice';
 
 const Detail = ({navigation, route}) => {
   const {details} = useSelector(state => state.hotels);
-  const {favorite} = useSelector(state => state.users);
+  const {favorite, loggedIn} = useSelector(state => state.users);
   const hotel = route.params;
+  console.log(hotel);
   const dispatch = useDispatch();
   const isFavorite = favorite.some(fav => fav.id === hotel.id);
 
@@ -35,16 +35,16 @@ const Detail = ({navigation, route}) => {
         paddingBottom: 20,
       }}>
       <ImageBackground
-        style={style.headerImage}
+        style={styles.headerImage}
         source={{uri: `${hotel.image}`}}>
-        <View style={style.header}>
+        <View style={styles.header}>
           <TouchableHighlight onPress={navigation.goBack}>
             <FontAwesomeIcon icon={faChevronLeft} size={28} color={'white'} />
           </TouchableHighlight>
         </View>
       </ImageBackground>
       <View>
-        <View style={style.iconContainer}>
+        <View style={styles.iconContainer}>
           <TouchableHighlight
             onPress={() => {
               isFavorite
@@ -93,7 +93,7 @@ const Detail = ({navigation, route}) => {
           <Text style={{fontSize: 20, fontWeight: 'bold'}}>
             Price per night
           </Text>
-          <View style={style.priceTag}>
+          <View style={styles.priceTag}>
             <Text
               style={{
                 fontSize: 16,
@@ -114,17 +114,19 @@ const Detail = ({navigation, route}) => {
             </Text>
           </View>
         </View>
-        <View style={style.btn}>
-          <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold'}}>
-            Book Now
-          </Text>
-        </View>
+        <TouchableOpacity onPress={() => loggedIn ? navigation.navigate('Booking', hotel) : navigation.navigate('Login')}>
+          <View style={styles.btn}>
+            <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold'}}>
+              Book Now
+            </Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
 };
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   btn: {
     height: 55,
     justifyContent: 'center',
@@ -134,7 +136,6 @@ const style = StyleSheet.create({
     marginHorizontal: 20,
     borderRadius: 10,
   },
-
   priceTag: {
     height: 40,
     alignItems: 'center',

@@ -7,6 +7,7 @@ import Detail from './src/pages/Detail';
 import {Provider} from 'react-redux';
 import {store} from './src/app/store';
 import List from './src/pages/List';
+import Booking from './src/pages/Booking';
 
 const Stack = createStackNavigator();
 
@@ -26,6 +27,7 @@ const App = () => {
             options={{headerShown: false}}
           />
           <Stack.Screen name="List" component={List} />
+          <Stack.Screen name="Booking" component={Booking} />
           <Stack.Screen name="Login" component={Login} />
         </Stack.Navigator>
       </NavigationContainer>
