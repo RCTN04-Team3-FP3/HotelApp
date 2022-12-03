@@ -140,7 +140,7 @@ const Home = ({navigation}) => {
           style={styles.search}
           onPress={() => {
             if (city && inDate && outDate && guest) {
-              navigation.navigate('List', city);
+              navigation.navigate('List', {city, inDate, outDate, guest});
               setCity(null);
               setInDate(null);
               setOutDate(null);
@@ -170,7 +170,7 @@ const Home = ({navigation}) => {
             paddingLeft: 20,
           }}
           renderItem={({item}) => (
-            <CarouselCard city={item} navigation={navigation} />
+            <CarouselCard item={item} navigation={navigation} />
           )}
         />
         <Text
@@ -191,7 +191,7 @@ const Home = ({navigation}) => {
             paddingBottom: 210,
           }}
           renderItem={({item}) => (
-            <CarouselCard city={item} navigation={navigation} />
+            <CarouselCard item={item} navigation={navigation} />
           )}
         />
       </ScrollView>

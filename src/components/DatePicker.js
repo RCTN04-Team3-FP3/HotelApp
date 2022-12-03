@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, {Component} from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import {Button, StyleSheet, View} from 'react-native';
 import CalendarPicker from 'react-native-calendar-picker';
 
 export default class DatePicker extends Component {
@@ -56,12 +56,6 @@ export default class DatePicker extends Component {
           }}
           title="Save"
         />
-
-        <View>
-          {/* <Text>START DATE:{startDate}</Text>
-          <Text>END DATE:{endDate}</Text> */}
-          {/* <Text>{this.props.date.toString()}</Text> */}
-        </View>
       </View>
     );
   }

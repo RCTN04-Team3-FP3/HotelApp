@@ -24,9 +24,6 @@ const TopHotelCard = ({city, navigation}) => {
         <Image style={styles.topHotelCardImage} source={city.image} />
         <View style={{paddingVertical: 5, paddingHorizontal: 10}}>
           <Text style={{fontSize: 18, fontWeight: 'bold'}}>{city.city}</Text>
-          {/* <Text style={{fontSize: 12, color: 'grey'}}>
-          {hotel.location}
-        </Text> */}
         </View>
       </View>
     </TouchableOpacity>

@@ -8,32 +8,23 @@ import ListCard from '../components/ListCard';
 import {fetchHotels} from '../features/hotels/hotelsSlice';
 
 const List = ({navigation, route}) => {
-  // const [id, setId] = useState();
-
-  // const options = {
-  //   method: 'GET',
-  //   headers: {
-  //     'X-RapidAPI-Key': '78e03438famsh5de0a1e4983a9d9p1412b3jsn0e43caf98b08',
-  //     'X-RapidAPI-Host': 'hotels4.p.rapidapi.com',
-  //   },
-  // };
-
-  // fetch(
-  //   `https://hotels4.p.rapidapi.com/locations/v3/search?q=${route.params}`,
-  //   options,
-  // )
-  //   .then(response => response.json())
-  //   .then(response => setId(response.sr[0].gaiaId))
-  //   .catch(err => console.error(err));
-  // console.log(id);
+  const data = route.params;
+  const city = data.city;
+  const inDay = data.inDate.date();
+  const inMonth = data.inDate.month() + 1;
+  const inYear = data.inDate.year();
+  const outDay = data.outDate.date();
+  const outMonth = data.outDate.month() + 1;
+  const outYear = data.outDate.year();
+  const guest = Number(data.guest);
 
   const dispatch = useDispatch();
   const doFetchHotels = () => {
-    dispatch(fetchHotels(route.params));
+    dispatch(fetchHotels({city, inDay, inMonth, inYear, outDay, outMonth, outYear, guest}));
   };
   useEffect(() => {
     doFetchHotels();
-  }, [route.params]);
+  }, []);
 
   const {hotels, loading} = useSelector(state => state.hotels);
   return (

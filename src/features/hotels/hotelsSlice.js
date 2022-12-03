@@ -29,13 +29,22 @@ const fetchId = city => {
     .then(res => res.data.sr[0].gaiaId);
 };
 
-const fetchProperty = id => {
+const fetchProperty = (
+  id,
+  inDay,
+  inMonth,
+  inYear,
+  outDay,
+  outMonth,
+  outYear,
+  guest,
+) => {
   return httpClient
     .post('properties/v2/list', {
       destination: {regionId: `${id}`},
-      checkInDate: {day: 10, month: 10, year: 2022},
-      checkOutDate: {day: 15, month: 10, year: 2022},
-      rooms: [{adults: 2}],
+      checkInDate: {day: inDay, month: inMonth, year: inYear},
+      checkOutDate: {day: outDay, month: outMonth, year: outYear},
+      rooms: [{adults: guest}],
       resultsStartingIndex: 0,
       resultsSize: 20,
       sort: 'RECOMMENDED',
@@ -56,10 +65,19 @@ const fetchProperty = id => {
 
 export const fetchHotels = createAsyncThunk(
   'hotels/fetchHotels',
-  async city => {
+  async data => {
     try {
-      const res = fetchId(city).then(res =>
-        fetchProperty(res).then(res => res),
+      const res = fetchId(data.city).then(res =>
+        fetchProperty(
+          res,
+          data.inDay,
+          data.inMonth,
+          data.inYear,
+          data.outDay,
+          data.outMonth,
+          data.outYear,
+          data.guest,
+        ).then(res => res),
       );
       return res;
     } catch (error) {
@@ -75,7 +93,8 @@ const fetchDetail = id => {
     })
     .then(res => {
       const data = {
-        location: res.data.data.propertyInfo.summary.location.address.addressLine,
+        location:
+          res.data.data.propertyInfo.summary.location.address.addressLine,
         desc: res.data.data.propertyInfo.summary.policies.shouldMention.body[0],
       };
       return data;
@@ -103,12 +122,14 @@ const hotelsSlice = createSlice({
         return {...state, loading: true};
       })
       .addCase(fetchHotels.fulfilled, (state, action) => {
+        console.log(action.payload);
         return {...state, hotels: action.payload, loading: false};
       })
       .addCase(fetchDetailHotel.fulfilled, (state, action) => {
         return {...state, details: action.payload};
       })
       .addCase(fetchHotels.rejected, (state, action) => {
+        console.log(action.error);
         return {...state, loading: false, error: action.error.message};
       });
   },
