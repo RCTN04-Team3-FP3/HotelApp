@@ -27,8 +27,16 @@ const App = () => {
             options={{headerShown: false}}
           />
           <Stack.Screen name="List" component={List} />
-          <Stack.Screen name="Booking" component={Booking} />
-          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen
+            name="Booking"
+            component={Booking}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{headerShown: false}}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

@@ -1,13 +1,16 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/react-in-jsx-scope */
-import {useEffect, useState} from 'react';
-import {SafeAreaView, ScrollView, Text} from 'react-native';
+import {useEffect} from 'react';
+import {ActivityIndicator, ScrollView, SafeAreaView} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import ListCard from '../components/ListCard';
 import {fetchHotels} from '../features/hotels/hotelsSlice';
+import {colors} from '../utils/styles/colors';
 
 const List = ({navigation, route}) => {
+  const {hotels, loading} = useSelector(state => state.hotels);
   const data = route.params;
   const city = data.city;
   const inDay = data.inDate.date();
@@ -20,17 +23,40 @@ const List = ({navigation, route}) => {
 
   const dispatch = useDispatch();
   const doFetchHotels = () => {
-    dispatch(fetchHotels({city, inDay, inMonth, inYear, outDay, outMonth, outYear, guest}));
+    dispatch(
+      fetchHotels({
+        city,
+        inDay,
+        inMonth,
+        inYear,
+        outDay,
+        outMonth,
+        outYear,
+        guest,
+      }),
+    );
   };
   useEffect(() => {
     doFetchHotels();
   }, []);
 
-  const {hotels, loading} = useSelector(state => state.hotels);
+  if (loading) {
+    return (
+      <SafeAreaView>
+        <ActivityIndicator
+          size="large"
+          color={colors.primary[3]}
+          style={{padding: 50}}
+        />
+      </SafeAreaView>
+    );
+  }
   return (
     <ScrollView>
       {!loading &&
-        hotels.map((hotel, index) => <ListCard key={index} hotel={hotel} navigation={navigation}/>)}
+        hotels.map((hotel, index) => (
+          <ListCard key={index} hotel={hotel} navigation={navigation} />
+        ))}
     </ScrollView>
   );
 };

@@ -38,6 +38,12 @@ const Booking = ({navigation, route}) => {
             placeholder="Your Address"
             value={userProfile.address}
           />
+          <Text style={styles.label}>Phone Number</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Your Phone Number"
+            value={userProfile.phone}
+          />
         </View>
       </View>
       <View style={styles.container}>
@@ -66,7 +72,7 @@ const Booking = ({navigation, route}) => {
       <TouchableOpacity
         onPress={() => {
           dispatch(addToHistory(route.params));
-          navigation.navigate('Profile');
+          navigation.navigate('History');
         }}>
         <View style={styles.btn}>
           <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold'}}>

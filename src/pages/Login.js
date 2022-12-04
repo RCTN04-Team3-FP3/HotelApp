@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
   SafeAreaView,
@@ -11,21 +12,22 @@ import {
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {setIsLoggedIn} from '../features/users/usersSlice';
+import {colors} from '../utils/styles/colors';
 
-const Login = ({ navigation }) => {
+const Login = ({navigation}) => {
   const dispatch = useDispatch();
   const {email, password} = useSelector(state => state.users);
+  const [emailInput, setEmailInput] = useState('');
+  const [passwordInput, setPasswordInput] = useState('');
+
   const onPressLogin = () => {
-    if ((emailInput === email) && (passwordInput === password)) {
+    if (emailInput === email && passwordInput === password) {
       dispatch(setIsLoggedIn(true));
       navigation.goBack();
     } else {
       Alert.alert('Wrong email or password!');
     }
   };
-
-  const [emailInput, setEmailInput] = useState('');
-  const [passwordInput, setPasswordInput] = useState('');
 
   return (
     <SafeAreaView style={styles.container}>
@@ -51,7 +53,9 @@ const Login = ({ navigation }) => {
         <Text style={styles.forgot}>Forgot Password?</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={onPressLogin} style={styles.loginBtn}>
-        <Text>LOGIN</Text>
+        <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold'}}>
+          LOGIN
+        </Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -60,7 +64,7 @@ const Login = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E3FDFD',
+    backgroundColor: colors.blue[1],
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -71,7 +75,7 @@ const styles = StyleSheet.create({
   },
   inputView: {
     width: '80%',
-    backgroundColor: '#CBF1F5',
+    backgroundColor: colors.blue[2],
     borderRadius: 25,
     height: 50,
     marginBottom: 20,
@@ -80,15 +84,15 @@ const styles = StyleSheet.create({
   },
   inputText: {
     height: 50,
-    color: 'black',
+    color: colors.primary[1],
   },
   forgot: {
-    color: '#003f5c',
+    color: colors.primary[2],
     fontSize: 11,
   },
   loginBtn: {
     width: '80%',
-    backgroundColor: '#71C9CE',
+    backgroundColor: colors.blue[4],
     borderRadius: 25,
     height: 50,
     alignItems: 'center',

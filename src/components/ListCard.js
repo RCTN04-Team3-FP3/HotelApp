@@ -4,8 +4,9 @@
 import {faStar} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {Image, SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
-import { useDispatch } from 'react-redux';
-import { fetchDetailHotel } from '../features/hotels/hotelsSlice';
+import {useDispatch} from 'react-redux';
+import {clearDetail, fetchDetailHotel} from '../features/hotels/hotelsSlice';
+import {colors} from '../utils/styles/colors';
 
 const ListCard = ({navigation, hotel}) => {
   const dispatch = useDispatch(hotel.id);
@@ -14,11 +15,12 @@ const ListCard = ({navigation, hotel}) => {
       activeOpacity={1}
       onPress={() => {
         navigation.navigate('Detail', hotel);
+        dispatch(clearDetail());
         dispatch(fetchDetailHotel(hotel.id));
       }}>
       <SafeAreaView style={styles.card}>
         <View style={styles.priceTag}>
-          <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>
+          <Text style={{fontSize: 16, fontWeight: 'bold'}}>
             ${hotel.price}
           </Text>
         </View>
@@ -52,7 +54,7 @@ const styles = {
   priceTag: {
     height: 60,
     width: 80,
-    backgroundColor: 'blue',
+    backgroundColor: colors.blue[3],
     position: 'absolute',
     zIndex: 1,
     right: 0,

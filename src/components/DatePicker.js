@@ -35,8 +35,6 @@ export default class DatePicker extends Component {
     const {selectedStartDate, selectedEndDate} = this.state;
     const minDate = new Date();
     const maxDate = new Date(2025, 1, 1);
-    // const startDate = selectedStartDate ? selectedStartDate.format('ll').toString() : '';
-    // const endDate = selectedEndDate ? selectedEndDate.format('ll').toString() : '';
     return (
       <View style={styles.container}>
         <CalendarPicker

@@ -18,13 +18,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {useDispatch, useSelector} from 'react-redux';
 import {deleteFavorite, saveToFavorite} from '../features/users/usersSlice';
+import { colors } from '../utils/styles/colors';
 
 const Detail = ({navigation, route}) => {
   const {details} = useSelector(state => state.hotels);
   const {favorite, loggedIn} = useSelector(state => state.users);
-  const hotel = route.params;
-  console.log(hotel);
   const dispatch = useDispatch();
+
+  const hotel = route.params;
   const isFavorite = favorite.some(fav => fav.id === hotel.id);
 
   return (
@@ -54,7 +55,7 @@ const Detail = ({navigation, route}) => {
             <FontAwesomeIcon
               icon={faBookmark}
               size={28}
-              color={isFavorite ? 'red' : 'white'}
+              color={isFavorite ? colors.primary[3] : 'white'}
             />
           </TouchableHighlight>
         </View>
@@ -98,7 +99,6 @@ const Detail = ({navigation, route}) => {
               style={{
                 fontSize: 16,
                 fontWeight: 'bold',
-                color: 'grey',
                 marginLeft: 5,
               }}>
               ${hotel.price}
@@ -107,7 +107,6 @@ const Detail = ({navigation, route}) => {
               style={{
                 fontSize: 12,
                 fontWeight: 'bold',
-                color: 'grey',
                 marginLeft: 10,
               }}>
               +breakfast
@@ -132,7 +131,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 40,
-    backgroundColor: 'blue',
+    backgroundColor: colors.primary[3],
     marginHorizontal: 20,
     borderRadius: 10,
   },
@@ -142,7 +141,7 @@ const styles = StyleSheet.create({
     marginLeft: 40,
     paddingLeft: 20,
     flex: 1,
-    backgroundColor: 'lightblue',
+    backgroundColor: colors.blue[3],
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     flexDirection: 'row',
@@ -151,7 +150,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     height: 60,
     width: 60,
-    backgroundColor: 'blue',
+    backgroundColor: colors.blue[3],
     top: -30,
     right: 20,
     borderRadius: 30,

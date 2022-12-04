@@ -1,18 +1,18 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/react-in-jsx-scope */
 import {
   faGear,
   faHeart,
   faHome,
-  faPerson,
+  faClock,
 } from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Favorites from '../pages/Favorites';
 import Home from '../pages/Home';
-import Profile from '../pages/Profile';
+import History from '../pages/History';
 import Setting from '../pages/Setting';
+import { colors } from '../utils/styles/colors';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,7 +23,7 @@ const Main = () => {
         ({route}) => ({
           tabBarShowLabel: false,
           tabBarIcon: ({focused}) => {
-            const activeColor = focused ? 'blue' : 'grey';
+            const activeColor = focused ? colors.primary[3] : colors.primary[2];
             switch (route.name) {
               case 'Home':
                 return (
@@ -36,10 +36,10 @@ const Main = () => {
                     style={{color: activeColor}}
                   />
                 );
-              case 'Profile':
+              case 'History':
                 return (
                   <FontAwesomeIcon
-                    icon={faPerson}
+                    icon={faClock}
                     style={{color: activeColor}}
                   />
                 );
@@ -57,8 +57,8 @@ const Main = () => {
         component={Favorites}
       />
       <Tab.Screen
-        name="Profile"
-        component={Profile}
+        name="History"
+        component={History}
       />
       <Tab.Screen
         name="Setting"

@@ -11,6 +11,7 @@ const initialState = {
     firstName: 'Team03',
     lastName: 'Hacktiv',
     address: 'Indonesia',
+    phone: '08123456789',
   },
 };
 
@@ -26,6 +27,9 @@ const usersSlice = createSlice({
     },
     setAddress: (state, action) => {
       state.userProfile.address = action.payload;
+    },
+    setPhone: (state, action) => {
+      state.userProfile.phone = action.payload;
     },
     setIsLoggedIn: (state, action) => {
       state.loggedIn = action.payload;
@@ -47,6 +51,7 @@ export const {
   setFirstName,
   setLastName,
   setAddress,
+  setPhone,
   setIsLoggedIn,
   addToHistory,
   saveToFavorite,

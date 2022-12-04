@@ -1,12 +1,20 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/react-in-jsx-scope */
-import {Button, SafeAreaView, Text} from 'react-native';
+import {SafeAreaView, Text, TouchableOpacity} from 'react-native';
+import {colors} from '../utils/styles/colors';
 
-const NotLoggedIn = ({ navigation }) => {
+const NotLoggedIn = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.text}>You must login to use this feature</Text>
-      <Button title="Login" onPress={() => navigation.navigate('Login')} />
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Login')}
+        style={styles.loginBtn}>
+        <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold'}}>
+          LOGIN
+        </Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -18,8 +26,15 @@ const styles = {
     justifyContent: 'center',
   },
   text: {
-    fontSize: 28,
-    marginBottom: 30,
+    fontSize: 24,
+  },
+  loginBtn: {
+    backgroundColor: colors.blue[4],
+    borderRadius: 25,
+    marginTop: 20,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 };
 
