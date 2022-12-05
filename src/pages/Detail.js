@@ -17,12 +17,13 @@ import {
   faBookmark,
 } from '@fortawesome/free-solid-svg-icons';
 import {deleteFavorite, saveToFavorite} from '../features/users/usersSlice';
-import { colors } from '../utils/styles/colors';
+import {colors} from '../utils/styles/colors';
 import useGetDetail from '../hooks/useGetDetail';
 
 const Detail = ({navigation, route}) => {
-  
-  const {details, favorite, loggedIn, dispatch, isFavorite, hotel} = useGetDetail({route});
+  const {details, loggedIn, dispatch, isFavorite, hotel} = useGetDetail({
+    route,
+  });
 
   return (
     <ScrollView
@@ -109,7 +110,12 @@ const Detail = ({navigation, route}) => {
             </Text>
           </View>
         </View>
-        <TouchableOpacity onPress={() => loggedIn ? navigation.navigate('Booking', hotel) : navigation.navigate('Login')}>
+        <TouchableOpacity
+          onPress={() =>
+            loggedIn
+              ? navigation.navigate('Booking', hotel)
+              : navigation.navigate('Login')
+          }>
           <View style={styles.btn}>
             <Text style={{color: 'white', fontSize: 18, fontWeight: 'bold'}}>
               Book Now

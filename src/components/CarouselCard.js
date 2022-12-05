@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable react/react-in-jsx-scope */
+import React from 'react';
 import moment from 'moment';
-import {TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import ImagedCarouselCard from 'react-native-imaged-carousel-card';
 
 const CarouselCard = ({navigation, item}) => {
@@ -12,7 +12,9 @@ const CarouselCard = ({navigation, item}) => {
   return (
     <TouchableOpacity
       style={styles.carouselCard}
-      onPress={() => navigation.navigate('List', {city, inDate, outDate, guest})}>
+      onPress={() =>
+        navigation.navigate('List', {city, inDate, outDate, guest})
+      }>
       <ImagedCarouselCard
         width={200}
         height={200}
@@ -23,10 +25,10 @@ const CarouselCard = ({navigation, item}) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   carouselCard: {
     marginRight: 20,
   },
-};
+});
 
 export default CarouselCard;

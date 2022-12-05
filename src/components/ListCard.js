@@ -1,9 +1,16 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable react/react-in-jsx-scope */
+import React from 'react';
 import {faStar} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {Image, SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {clearDetail, fetchDetailHotel} from '../features/hotels/hotelsSlice';
 import {colors} from '../utils/styles/colors';
@@ -20,9 +27,7 @@ const ListCard = ({navigation, hotel}) => {
       }}>
       <SafeAreaView style={styles.card}>
         <View style={styles.priceTag}>
-          <Text style={{fontSize: 16, fontWeight: 'bold'}}>
-            ${hotel.price}
-          </Text>
+          <Text style={{fontSize: 16, fontWeight: 'bold'}}>${hotel.price}</Text>
         </View>
         <Image source={{uri: `${hotel.image}`}} style={styles.cardImage} />
         <View style={styles.cardDetails}>
@@ -43,7 +48,7 @@ const ListCard = ({navigation, hotel}) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   card: {
     height: 300,
     elevation: 15,
@@ -78,6 +83,6 @@ const styles = {
     padding: 10,
     width: '100%',
   },
-};
+});
 
 export default ListCard;

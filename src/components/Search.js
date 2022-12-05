@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable react/react-in-jsx-scope */
+import React from 'react';
 import {
   faCalendar,
   faPerson,
