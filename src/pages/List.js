@@ -1,15 +1,13 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/react-in-jsx-scope */
+import React from 'react';
 import {ActivityIndicator, ScrollView, SafeAreaView} from 'react-native';
 import ListCard from '../components/ListCard';
 import useGetListData from '../hooks/useGetListData';
 import {colors} from '../utils/styles/colors';
 
 const List = ({navigation, route}) => {
-
-  const {hotels, loading} = useGetListData(route)
+  const {hotels, loading} = useGetListData(route);
 
   if (loading) {
     return (

@@ -1,15 +1,10 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable react/react-in-jsx-scope */
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   Text,
-  View,
   FlatList,
-  StyleSheet,
-  TouchableOpacity,
-  Alert,
   ScrollView,
 } from 'react-native';
 import CarouselCard from '../components/CarouselCard';
@@ -103,14 +98,5 @@ const Home = ({navigation}) => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  header: {
-    marginTop: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-  },
-});
 
 export default Home;

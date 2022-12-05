@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable react/react-in-jsx-scope */
-import {SafeAreaView, Text, TouchableOpacity} from 'react-native';
+import React from 'react';
+import {SafeAreaView, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {colors} from '../utils/styles/colors';
 
 const NotLoggedIn = ({navigation}) => {
@@ -19,7 +19,7 @@ const NotLoggedIn = ({navigation}) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   container: {
     padding: 50,
     display: 'flex',
@@ -36,6 +36,6 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
   },
-};
+});
 
 export default NotLoggedIn;

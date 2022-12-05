@@ -1,12 +1,13 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable react/react-in-jsx-scope */
+import React from 'react';
 import {
   ScrollView,
   Text,
   TouchableOpacity,
   View,
   TextInput,
+  StyleSheet,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import NotLoggedIn from '../components/NotLoggedIn';
@@ -74,7 +75,7 @@ const Setting = ({navigation}) => {
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   container: {
     margin: 20,
     padding: 20,
@@ -106,6 +107,6 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
   },
-};
+});
 
 export default Setting;
