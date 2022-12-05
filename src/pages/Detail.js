@@ -16,17 +16,13 @@ import {
   faChevronLeft,
   faBookmark,
 } from '@fortawesome/free-solid-svg-icons';
-import {useDispatch, useSelector} from 'react-redux';
 import {deleteFavorite, saveToFavorite} from '../features/users/usersSlice';
 import { colors } from '../utils/styles/colors';
+import useGetDetail from '../hooks/useGetDetail';
 
 const Detail = ({navigation, route}) => {
-  const {details} = useSelector(state => state.hotels);
-  const {favorite, loggedIn} = useSelector(state => state.users);
-  const dispatch = useDispatch();
-
-  const hotel = route.params;
-  const isFavorite = favorite.some(fav => fav.id === hotel.id);
+  
+  const {details, favorite, loggedIn, dispatch, isFavorite, hotel} = useGetDetail({route});
 
   return (
     <ScrollView

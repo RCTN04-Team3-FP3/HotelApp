@@ -8,27 +8,15 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  Alert,
 } from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {setIsLoggedIn} from '../features/users/usersSlice';
+import useLogin from '../hooks/useLogin';
 import {colors} from '../utils/styles/colors';
 
 const Login = ({navigation}) => {
-  const dispatch = useDispatch();
-  const {email, password} = useSelector(state => state.users);
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
 
-  const onPressLogin = () => {
-    if (emailInput === email && passwordInput === password) {
-      dispatch(setIsLoggedIn(true));
-      navigation.goBack();
-    } else {
-      Alert.alert('Wrong email or password!');
-    }
-  };
-
+  const onPressLogin = useLogin(navigation, emailInput, passwordInput)
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>HotelApp</Text>
