@@ -9,12 +9,11 @@ import {
   View,
   TextInput,
 } from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
 import {addToHistory} from '../features/users/usersSlice';
+import useBooking from '../hooks/useBooking';
 
 const Booking = ({navigation, route}) => {
-  const dispatch = useDispatch();
-  const {userProfile} = useSelector(state => state.users);
+  const {dispatch, userProfile} = useBooking()
   return (
     <ScrollView>
       <View style={styles.container}>
