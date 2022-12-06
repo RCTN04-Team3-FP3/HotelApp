@@ -74,11 +74,15 @@ const Booking = ({navigation, route}) => {
               }}>{`${inDate.format('ll')} - ${outDate.format('ll')}`}</Text>
           )}
           <Text style={styles.label}>Total Price</Text>
-          {(!inDate || !outDate) && (
+          {!inDate && (
             <Text style={{fontSize: 18, color: colors.primary[1]}}>
               Please choose the date first
             </Text>
           )}
+          {inDate && !outDate && (
+            <Text style={{fontSize: 18, color: colors.primary[1]}}>
+              Please choose the checkout date
+            </Text>)}
           {inDate && outDate && (
             <Text
               style={{
