@@ -2,7 +2,7 @@
 Hotel booking app created with React Native.
 
 ### Account
-Email: team03@gmail.com
+Email: team03@gmail.com\
 Password: team03
 
 ### Installation
