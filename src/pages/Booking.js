@@ -89,7 +89,7 @@ const Booking = ({navigation, route}) => {
                 fontSize: 18,
                 color: colors.primary[1],
               }}>
-              ${outDate.diff(inDate, 'd') * Number(route.params.price)} (
+              ${(outDate.diff(inDate, 'd') * Number(route.params.price)).toFixed(2)} (
               {outDate.diff(inDate, 'd')} days)
             </Text>
           )}
@@ -98,7 +98,7 @@ const Booking = ({navigation, route}) => {
           onPress={() => {
             if (inDate) {
               const totalPrice =
-                outDate.diff(inDate, 'd') * Number(route.params.price);
+                (outDate.diff(inDate, 'd') * Number(route.params.price)).toFixed(2);
               dispatch(addToHistory({...route.params, totalPrice}));
               navigation.navigate('History');
             } else {
