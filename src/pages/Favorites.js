@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
-import useFavoriteHistory from '../hooks/useFavoriteHistory';
+import useFavorite from '../hooks/useFavorite';
 
 const Favorites = ({navigation}) => {
-  const {component} = useFavoriteHistory(navigation, 'fav');
+  const {component} = useFavorite(navigation);
   return component;
 };
 

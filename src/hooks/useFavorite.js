@@ -6,27 +6,19 @@ import ListCard from '../components/ListCard';
 import Nothing from '../components/Nothing';
 import NotLoggedIn from '../components/NotLoggedIn';
 
-const useFavoriteHistory = (navigation, type) => {
-  let list = null;
-  const {loggedIn} = useSelector(state => state.users);
-  if (type === 'fav') {
-    const {favorite} = useSelector(state => state.users);
-    list = favorite;
-  } else {
-    const {history} = useSelector(state => state.users);
-    list = history;
-  }
+const useFavorite = (navigation) => {
+  const {loggedIn, favorite} = useSelector(state => state.users);
 
   let component = null;
 
   if (!loggedIn) {
     component = <NotLoggedIn navigation={navigation} />;
-  } else if (loggedIn && !list.length) {
+  } else if (loggedIn && !favorite.length) {
     component = <Nothing />;
   } else {
     component = (
       <ScrollView showsVerticalScrollIndicator={false}>
-        {list.map((hotel, index) => (
+        {favorite.map((hotel, index) => (
           <ListCard key={index} hotel={hotel} navigation={navigation} />
         ))}
       </ScrollView>
@@ -35,4 +27,4 @@ const useFavoriteHistory = (navigation, type) => {
   return {component};
 };
 
-export default useFavoriteHistory;
+export default useFavorite;

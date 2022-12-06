@@ -19,10 +19,11 @@ import {
   setPhone,
 } from '../features/users/usersSlice';
 import {colors} from '../utils/styles/colors';
+import useSetting from '../hooks/useSetting';
 
 const Setting = ({navigation}) => {
-  const dispatch = useDispatch();
-  const {loggedIn, userProfile} = useSelector(state => state.users);
+
+  const {dispatch, loggedIn, userProfile} = useSetting();
 
   if (!loggedIn) {
     return <NotLoggedIn navigation={navigation} />;
