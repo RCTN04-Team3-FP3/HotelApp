@@ -8,7 +8,6 @@ import NotLoggedIn from '../components/NotLoggedIn';
 
 const useFavoriteHistory = (navigation, type) => {
   let list = null;
-  console.log(type);
   const {loggedIn} = useSelector(state => state.users);
   if (type === 'fav') {
     const {favorite} = useSelector(state => state.users);
