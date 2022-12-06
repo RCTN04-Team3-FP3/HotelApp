@@ -61,12 +61,12 @@ const Booking = ({navigation, route}) => {
               <Text style={styles.labelDate}>Change Date</Text>
             </TouchableOpacity>
           </View>
-          {!inDate && (
+          {(!inDate || !outDate) && (
             <Text style={{fontSize: 18, color: colors.primary[1]}}>
               Choose Date
             </Text>
           )}
-          {inDate && (
+          {inDate && outDate && (
             <Text
               style={{
                 fontSize: 18,
@@ -79,7 +79,11 @@ const Booking = ({navigation, route}) => {
               Please choose the date first
             </Text>
           )}
-          {inDate && (
+          {inDate && !outDate && (
+            <Text style={{fontSize: 18, color: colors.primary[1]}}>
+              Please choose the checkout date
+            </Text>)}
+          {inDate && outDate && (
             <Text
               style={{
                 fontSize: 18,
